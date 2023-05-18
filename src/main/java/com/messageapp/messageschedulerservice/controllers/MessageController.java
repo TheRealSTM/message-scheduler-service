@@ -1,13 +1,20 @@
 package com.messageapp.messageschedulerservice.controllers;
 
+import com.messageapp.messageschedulerservice.models.MessageCreationRequest;
+import com.messageapp.messageschedulerservice.models.UserSignupInfo;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class MessageController {
+
+    @PostMapping("/message")
+    public ResponseEntity<MessageCreationRequest> addMessage(@RequestBody MessageCreationRequest request) {
+        System.out.println("We received a request to create the following message request: " + request);
+
+        return new ResponseEntity<>(request, HttpStatus.CREATED);
+    }
 
     @GetMapping("/message/{messageID}")
     public ResponseEntity<String> getMessage(@PathVariable String messageID) {
