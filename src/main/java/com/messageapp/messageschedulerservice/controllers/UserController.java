@@ -1,15 +1,17 @@
 package com.messageapp.messageschedulerservice.controllers;
 
 import com.messageapp.messageschedulerservice.models.UserSignupInfo;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 
 @RestController
 public class UserController {
 
     @PostMapping("/user")
-    public ResponseEntity<UserSignupInfo> signup(@RequestBody UserSignupInfo user) {
+    public ResponseEntity<UserSignupInfo> signup(@Valid @RequestBody UserSignupInfo user) {
         System.out.println("We received a request to add a user: " + user);
 
         // For now, let's just return the user info

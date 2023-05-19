@@ -1,7 +1,7 @@
 package com.messageapp.messageschedulerservice.controllers;
 
 import com.messageapp.messageschedulerservice.models.MessageCreationRequest;
-import com.messageapp.messageschedulerservice.models.UserSignupInfo;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 public class MessageController {
 
     @PostMapping("/message")
-    public ResponseEntity<MessageCreationRequest> addMessage(@RequestBody MessageCreationRequest request) {
+    public ResponseEntity<MessageCreationRequest> addMessage(@Valid @RequestBody MessageCreationRequest request) {
         System.out.println("We received a request to create the following message request: " + request);
 
         return new ResponseEntity<>(request, HttpStatus.CREATED);
