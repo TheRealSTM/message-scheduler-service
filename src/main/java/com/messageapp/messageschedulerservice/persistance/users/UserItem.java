@@ -1,10 +1,12 @@
 package com.messageapp.messageschedulerservice.persistance.users;
 
+import lombok.Builder;
 import lombok.Data;
 
 import java.util.Date;
 
 @Data
+@Builder
 public class UserItem {
     final private String userID;
 
