@@ -6,13 +6,14 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.UUID;
 
 @Repository
 public class JdbcUserRepository implements UserRespository {
 
-    private static final String QUERY_GET_USER_BY_EMAIL = "select * from User where email=?";
+    private static final String QUERY_GET_USER_BY_EMAIL = "select * from Users where email=?";
     private static final String QUERY_ADD_USER =
-            "insert into User (userID, signUpDate, firstName, lastName, email, password, phoneNumber) values " +
+            "insert into Users (userID, signUpDate, firstName, lastName, email, password, phoneNumber) values " +
             "(?, ?, ?, ?, ?, ?, ?)";
 
     private JdbcTemplate jdbc;
@@ -41,7 +42,7 @@ public class JdbcUserRepository implements UserRespository {
 
     private UserItem mapRowToUser(ResultSet rs, int rowNum) throws SQLException {
         return UserItem.builder()
-                .userID(rs.getString("userID"))
+                .userID(UUID.fromString(rs.getString("userID")))
                 .signUpDate(rs.getDate("signUpDate"))
                 .firstName(rs.getString("firstName"))
                 .lastName(rs.getString("lastName"))
