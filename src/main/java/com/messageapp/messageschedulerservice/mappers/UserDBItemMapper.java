@@ -7,8 +7,18 @@ import org.springframework.stereotype.Component;
 import java.util.Date;
 import java.util.UUID;
 
+/**
+ * This class is responsible for mapping UserSignupInfo to UserItem.
+ */
 @Component
 public class UserDBItemMapper {
+
+    /**
+     * This method is responsible for transforming a UserSignupInfo object into a UserItem object.
+     *
+     * @param user The UserSignupInfo object that should be transformed.
+     * @return A UserItem object containing the data from the UserSignupInfo and some additional fields.
+     */
     public UserItem mapUserSignupInfoToUserItem(UserSignupInfo user) {
         return UserItem.builder()
                 .userID(UUID.randomUUID())

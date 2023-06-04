@@ -6,29 +6,48 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.SQLOutput;
 import java.util.UUID;
 
+/**
+ * A repository class that provides JDBC operations for the Users.
+ * It implements {@link UserRespository} interface methods for this purpose.
+ */
 @Repository
 public class JdbcUserRepository implements UserRespository {
 
     private static final String QUERY_GET_USER_BY_EMAIL = "select * from Users where email=?";
     private static final String QUERY_ADD_USER =
             "insert into Users (userID, signUpDate, firstName, lastName, email, password, phoneNumber) values " +
-            "(?, ?, ?, ?, ?, ?, ?)";
+                    "(?, ?, ?, ?, ?, ?, ?)";
 
-    private JdbcTemplate jdbc;
+    private final JdbcTemplate jdbc;
+
+    /**
+     * Constructs a new JdbcUserRepository with a given JdbcTemplate.
+     *
+     * @param jdbc JdbcTemplate used for JDBC operations
+     */
     @Autowired
     public JdbcUserRepository(JdbcTemplate jdbc) {
         this.jdbc = jdbc;
     }
 
+    /**
+     * Fetches a UserItem from the Users table based on the provided email.
+     *
+     * @param email Email of the user to retrieve
+     * @return UserItem object representing the user record
+     */
     @Override
     public UserItem getUserByEmail(String email) {
         return jdbc.queryForObject(QUERY_GET_USER_BY_EMAIL, this::mapRowToUser, email);
-
     }
 
+    /**
+     * Adds a new user to the Users table.
+     *
+     * @param userItem the UserItem object containing the details of the user to add
+     */
     @Override
     public void addUser(UserItem userItem) {
         jdbc.update(QUERY_ADD_USER,
@@ -52,5 +71,5 @@ public class JdbcUserRepository implements UserRespository {
                 .phoneNumber(rs.getString("phoneNumber"))
                 .build();
     }
-
 }
+
