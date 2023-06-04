@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLOutput;
 import java.util.UUID;
 
 @Repository
@@ -41,6 +42,7 @@ public class JdbcUserRepository implements UserRespository {
     }
 
     private UserItem mapRowToUser(ResultSet rs, int rowNum) throws SQLException {
+        System.out.println("UUID retrieved from DB: " + rs.getString("userID"));
         return UserItem.builder()
                 .userID(UUID.fromString(rs.getString("userID")))
                 .signUpDate(rs.getDate("signUpDate"))

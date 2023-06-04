@@ -6,7 +6,7 @@ import com.messageapp.messageschedulerservice.persistance.users.UserItem;
 import com.messageapp.messageschedulerservice.persistance.users.UserRespository;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -28,13 +28,21 @@ public class UserController {
         UserItem userItem = userDBItemMapper.mapUserSignupInfoToUserItem(user);
         userRespository.addUser(userItem);
 
-        System.out.println("User: " + user + " was added.");
+        System.out.println("User: " + userItem + " was added.");
         return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
 
     @GetMapping("/user/{email}")
-    public ResponseEntity<String> getUserByEmail(@PathVariable String email) {
+    public ResponseEntity<UserItem> getUserByEmail(@PathVariable String email) {
         System.out.println("We received a request to retrieve the user associated with the email: " + email);
-        return new ResponseEntity<>("User found for " + email, HttpStatus.OK);
+        UserItem user;
+        try {
+            user = userRespository.getUserByEmail(email);
+        } catch (EmptyResultDataAccessException e) {
+            System.out.println("We could not find a user associated with the email: " + email);
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+        System.out.println("The following user(" + user + ") was retrieved.");
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 }
