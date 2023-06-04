@@ -1,7 +1,7 @@
 package com.messageapp.messageschedulerservice.mappers;
 
 import com.messageapp.messageschedulerservice.models.UserSignupInfo;
-import com.messageapp.messageschedulerservice.persistance.users.UserItem;
+import com.messageapp.messageschedulerservice.persistance.user.UserItem;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;

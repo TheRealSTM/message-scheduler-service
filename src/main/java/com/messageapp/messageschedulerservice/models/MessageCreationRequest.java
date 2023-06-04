@@ -1,5 +1,6 @@
 package com.messageapp.messageschedulerservice.models;
 
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
@@ -12,6 +13,10 @@ import lombok.RequiredArgsConstructor;
 @Data
 @RequiredArgsConstructor
 public class MessageCreationRequest {
+    @NotNull
+    @Email
+    final String email;
+
     @NotNull
     final String messageStartDate;
 

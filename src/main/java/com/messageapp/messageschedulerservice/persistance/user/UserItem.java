@@ -1,4 +1,4 @@
-package com.messageapp.messageschedulerservice.persistance.users;
+package com.messageapp.messageschedulerservice.persistance.user;
 
 import lombok.Builder;
 import lombok.Data;

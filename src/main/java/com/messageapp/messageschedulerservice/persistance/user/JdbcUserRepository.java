@@ -1,4 +1,4 @@
-package com.messageapp.messageschedulerservice.persistance.users;
+package com.messageapp.messageschedulerservice.persistance.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -10,10 +10,10 @@ import java.util.UUID;
 
 /**
  * A repository class that provides JDBC operations for the Users.
- * It implements {@link UserRespository} interface methods for this purpose.
+ * It implements {@link UserRepository} interface methods for this purpose.
  */
 @Repository
-public class JdbcUserRepository implements UserRespository {
+public class JdbcUserRepository implements UserRepository {
 
     private static final String QUERY_GET_USER_BY_EMAIL = "select * from Users where email=?";
     private static final String QUERY_ADD_USER =
@@ -61,7 +61,6 @@ public class JdbcUserRepository implements UserRespository {
     }
 
     private UserItem mapRowToUser(ResultSet rs, int rowNum) throws SQLException {
-        System.out.println("UUID retrieved from DB: " + rs.getString("userID"));
         return UserItem.builder()
                 .userID(UUID.fromString(rs.getString("userID")))
                 .signUpDate(rs.getDate("signUpDate"))
