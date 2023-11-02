@@ -16,8 +16,8 @@ import java.util.List;
 public class JdbcMessageRepository implements MessageRepository {
 
     private static final String QUERY_ADD_MESSAGE =
-            "insert into ScheduledMessages (email, messageRequestDate, messageStartDate, message, destinationPhoneNumber, callbackPhoneNumber, messageFrequency, isActive) values " +
-                    "(?, ?, ?, ?, ?, ?, ?, ?)";
+            "insert into ScheduledMessages (messageID, messageRequestDate, email, messageStartDate, message, destinationPhoneNumber, callbackPhoneNumber, messageFrequency, isActive) values " +
+                    "(?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
     private static final String QUERY_GET_MESSAGE_BY_EMAIL = "select * from ScheduledMessages where email=?";
 
@@ -35,9 +35,11 @@ public class JdbcMessageRepository implements MessageRepository {
     @Override
     public void addScheduledMessage(MessageItem messageItem) {
         jdbc.update(QUERY_ADD_MESSAGE,
-                messageItem.getEmail(),
+                messageItem.getMessageID(),
                 messageItem.getMessageRequestDate(),
+                messageItem.getEmail(),
                 messageItem.getMessageStartDate(),
+                messageItem.getMessage(),
                 messageItem.getDestinationPhoneNumber(),
                 messageItem.getCallbackPhoneNumber(),
                 messageItem.getMessageFrequency(),
@@ -52,7 +54,7 @@ public class JdbcMessageRepository implements MessageRepository {
     private MessageItem mapRowToMessage(ResultSet rs, int rowNum) throws SQLException {
         return MessageItem.builder()
                 .email(rs.getString("email"))
-                .messageRequestDate(rs.getString("messageRequestDate"))
+                .messageRequestDate(rs.getDate("messageRequestDate"))
                 .messageStartDate(rs.getString("messageStartDate"))
                 .message(rs.getString("message"))
                 .destinationPhoneNumber(rs.getString("destinationPhoneNumber"))

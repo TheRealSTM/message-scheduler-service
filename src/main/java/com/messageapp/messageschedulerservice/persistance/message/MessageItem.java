@@ -3,6 +3,9 @@ package com.messageapp.messageschedulerservice.persistance.message;
 import lombok.Builder;
 import lombok.Data;
 
+import java.util.Date;
+import java.util.UUID;
+
 /**
  * The MessageItem class represents a scheduled message in the system.
  * It encapsulates all the properties associated with a scheduled message including its scheduling details.
@@ -10,7 +13,9 @@ import lombok.Data;
 @Data
 @Builder
 public class MessageItem {
-    final String messageRequestDate;
+    final private UUID messageID;
+
+    final Date messageRequestDate;
 
     final String email;
 

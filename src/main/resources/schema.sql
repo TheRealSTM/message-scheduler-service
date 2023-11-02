@@ -7,3 +7,15 @@ CREATE TABLE IF NOT EXISTS Users (
     password VARCHAR(64),
     phoneNumber VARCHAR(15)
 );
+
+CREATE TABLE IF NOT EXISTS ScheduledMessages (
+    messageID VARCHAR(64) PRIMARY KEY,
+    messageRequestDate TIMESTAMP,
+    email VARCHAR(128) NOT NULL,
+    messageStartDate TIMESTAMP,
+    message VARCHAR(1024) NOT NULL,
+    destinationPhoneNumber VARCHAR(15),
+    callbackPhoneNumber VARCHAR(15),
+    messageFrequency VARCHAR(32),
+    isActive BOOLEAN
+);
